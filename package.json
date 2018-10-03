@@ -1,0 +1,32 @@
+{
+  "name": "mernsocial",
+  "version": "1.0.0",
+  "description": "Social Network",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "server": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hereiam123/MERNSocial.git"
+  },
+  "author": "Brian De Maio",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Hereiam123/MERNSocial/issues"
+  },
+  "homepage": "https://github.com/Hereiam123/MERNSocial#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.3.1",
+    "nodemon": "^1.18.4",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "validator": "^10.8.0"
+  }
+}
