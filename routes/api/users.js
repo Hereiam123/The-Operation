@@ -8,6 +8,7 @@ const passport = require("passport");
 
 //Load Input Validation
 const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
 
 //Load User model
 const User = require("../../models/User");
@@ -25,7 +26,8 @@ router.post("/register", (req, res) => {
 
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      return res.status(400).json({ email: "Email already exists" });
+      errors.email = "Email already taken.";
+      return res.status(400).json(errors);
     } else {
       const avatar = gravatar.url(req.body.email, {
         s: "200", //Size
@@ -58,11 +60,16 @@ router.post("/register", (req, res) => {
 //@desc Login for a user and returning JWT
 //@access Public
 router.post("/login", (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
   const email = req.body.email;
   const password = req.body.password;
   User.findOne({ email }).then(user => {
     if (!user) {
-      return res.status(404).json({ email: "User not found" });
+      errors.email = "User not found";
+      return res.status(404).json(errors);
     }
     //Check password match
     bcrypt
