@@ -9,11 +9,6 @@ const passport = require("passport");
 //Load User model
 const User = require("../../models/User");
 
-//@route GET api/users/test
-//@desc Tests users route
-//@access Public
-router.get("/test", (req, res) => res.json({ msg: "Users route works" }));
-
 //@route POST api/users/register
 //@desc Register a user
 //@access Public
@@ -94,7 +89,11 @@ router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.json({ msg: "Success" });
+    res.json({
+      user: req.user,
+      name: req.name,
+      email: req.email
+    });
   }
 );
 
