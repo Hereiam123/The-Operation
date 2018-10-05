@@ -1,3 +1,5 @@
+//User registration and login routes
+//Passport and Validator
 const express = require("express");
 const router = express.Router();
 const gravatar = require("gravatar");
@@ -92,7 +94,9 @@ router.post("/login", (req, res) => {
             }
           );
         } else {
-          return res.status(400).json({ password: "Password Incorrect" });
+          //Incorrect password, send response
+          errors.password = "Password Incorrect";
+          return res.status(400).json(errors);
         }
       })
       .catch(err => console.log(err));
