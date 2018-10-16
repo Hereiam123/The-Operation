@@ -46,7 +46,7 @@ router.post(
 
     //Get profile creation fields
     const profileFields = {};
-    profileFields.user = req.body.user;
+    profileFields.user = req.user.id;
     if (req.body.handle) {
       profileFields.handle = req.body.handle;
     }
@@ -75,10 +75,11 @@ router.post(
     if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
 
     Profile.findOne({ user: req.user.id }).then(profile => {
+      //Check to see if there is a profile returned
       if (profile) {
         //Update the profile
         Profile.findOneAndUpdate(
-          { user: user.req.id },
+          { user: req.user.id },
           { $set: profileFields },
           { new: true }
         ).then(profile => res.json(profile));
