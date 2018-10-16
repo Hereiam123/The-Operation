@@ -8,6 +8,9 @@ const Profile = require("../../models/Profile");
 //Load user profile
 const User = require("../../models/User");
 
+//Get profile creation or update errors
+const validateProfileInput = require("../../validation/profile");
+
 //@route GET api/profile
 //@desc Get current users profile
 //@access Private
@@ -20,11 +23,79 @@ router.get(
       .then(profile => {
         if (!profile) {
           errors.noprofile = "There is no profile located for this user";
-          res.status(404).json(errors);
+          res.skills(404).json(errors);
         }
         res.json(profile);
       })
       .catch(err => res.status(404).json(err));
+  }
+);
+
+//@route POST api/profile
+//@desc Create or update user profile
+//@access Private
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateProfileInput(req.body);
+    //If the profile field inputs are not valid, returninput errors
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
+    //Get profile creation fields
+    const profileFields = {};
+    profileFields.user = req.body.user;
+    if (req.body.handle) {
+      profileFields.handle = req.body.handle;
+    }
+    if (req.body.status) {
+      profileFields.status = req.body.status;
+    }
+    if (req.body.company) {
+      profileFields.company = req.body.company;
+    }
+    if (req.body.website) {
+      profileFields.website = req.body.website;
+    }
+    if (req.body.githubusername) {
+      profileFields.githubusername = req.body.githubusername;
+    }
+    //Multiple skills, split into an array at ',' value
+    if (typeof req.body.skills !== "undefined") {
+      profileFields.skills = req.body.skills.split(",");
+    }
+    //Social fields is an object
+    profileFields.social = {};
+    if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
+    if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
+    if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
+    if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
+    if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
+
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      if (profile) {
+        //Update the profile
+        Profile.findOneAndUpdate(
+          { user: user.req.id },
+          { $set: profileFields },
+          { new: true }
+        ).then(profile => res.json(profile));
+      } else {
+        //Create new profile
+        //Check to see if handle exists
+        Profile.findOne({ handle: profileFields.handle }).then(profile => {
+          if (profile) {
+            errors.handle = "That handle already exists";
+            return res.status(400).json({ errors });
+          }
+
+          //Save profile
+          new Profile(profileFields).save().then(profile => res.json(profile));
+        });
+      }
+    });
   }
 );
 
