@@ -31,6 +31,25 @@ router.get(
   }
 );
 
+//@route GET api/profile/all
+//@desc Get all users' profiles
+//@access Public
+router.get("/all", (req, res) => {
+  const errors = {};
+  Profile.find()
+    .populate("user", ["name", "avatar"])
+    .then(profiles => {
+      if (!profiles) {
+        errors.noprofiles = "There are no profiles available";
+        return res.status(404).json(errors);
+      }
+      res.json(profiles);
+    })
+    .catch(err =>
+      res.status(404).json({ profiles: "There is are no profiles available" })
+    );
+});
+
 //@route GET api/profile/handle/:handle
 //@desc Get a user's profile by their profile handle
 //@access Public
@@ -62,7 +81,9 @@ router.get("/user/:user_id", (req, res) => {
       }
       res.json(profile);
     })
-    .catch(err => res.status(404).json(err));
+    .catch(err =>
+      res.status(404).json({ profile: "There is no profile for this user" })
+    );
 });
 
 //@route POST api/profile
@@ -116,19 +137,26 @@ router.post(
           { user: req.user.id },
           { $set: profileFields },
           { new: true }
-        ).then(profile => res.json(profile));
+        )
+          .then(profile => res.json(profile))
+          .catch(err => res.status(404).json(err));
       } else {
         //Create new profile
         //Check to see if handle exists
-        Profile.findOne({ handle: profileFields.handle }).then(profile => {
-          if (profile) {
-            errors.handle = "That handle already exists";
-            return res.status(400).json({ errors });
-          }
+        Profile.findOne({ handle: profileFields.handle })
+          .then(profile => {
+            if (profile) {
+              errors.handle = "That handle already exists";
+              return res.status(400).json({ errors });
+            }
 
-          //Save profile
-          new Profile(profileFields).save().then(profile => res.json(profile));
-        });
+            //Save profile
+            new Profile(profileFields)
+              .save()
+              .then(profile => res.json(profile))
+              .catch(err => res.status(404).json(err));
+          })
+          .catch(err => res.status(404).json(err));
       }
     });
   }
