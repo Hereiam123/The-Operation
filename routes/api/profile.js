@@ -10,6 +10,7 @@ const User = require("../../models/User");
 
 //Get profile creation or update errors
 const validateProfileInput = require("../../validation/profile");
+const validateExperienceInput = require("../../validation/experience");
 
 //@route GET api/profile
 //@desc Get current users profile
@@ -158,6 +159,41 @@ router.post(
           })
           .catch(err => res.status(404).json(err));
       }
+    });
+  }
+);
+
+//@route POST api/profile/experience
+//@desc Add experience to profile
+//@access Private
+
+router.post(
+  "/experience",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateExperienceInput(req.body);
+    //If the profile field inputs are not valid, returninput errors
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      const newExp = {
+        title: req.body.title,
+        company: req.body.company,
+        location: req.body.location,
+        from: req.body.from,
+        to: req.body.to,
+        current: req.body.current,
+        description: req.body.description
+      };
+
+      //Add to experience array
+      profile.experience.unshift(newExp);
+
+      profile.save().then(profile => {
+        return res.json(profile);
+      });
     });
   }
 );
