@@ -11,6 +11,16 @@ const User = require("../../models/User");
 //Get post validation
 const validatePostInput = require("../../validation/post");
 
+//@route GET api/posts
+//@desc GET posts
+//@access Public
+router.get("/", (req, res) => {
+  Post.find()
+    .sort({ date: -1 })
+    .then(posts => res.json(posts))
+    .catch(err => res.status(404).json(err));
+});
+
 //@route POST api/post
 //@desc Create Post
 //@access Private
@@ -18,7 +28,7 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const { errors, isVaild } = validatePostInput(req.body);
+    const { errors, isValid } = validatePostInput(req.body);
 
     //Check Validation
     if (!isValid) {
