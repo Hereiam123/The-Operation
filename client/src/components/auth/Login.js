@@ -52,6 +52,9 @@ class Login extends Component {
                     name="email"
                     required
                   />
+                  {errors.email && (
+                    <div className="invalid-feedback">{errors.email}</div>
+                  )}
                 </div>
                 <div className="form-group">
                   <input
@@ -65,6 +68,9 @@ class Login extends Component {
                     name="password"
                     required
                   />
+                  {errors.password && (
+                    <div className="invalid-feedback">{errors.password}</div>
+                  )}
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
