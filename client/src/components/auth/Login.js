@@ -27,11 +27,11 @@ class Login extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const loginUser = {
+    const newUser = {
       email: this.state.email,
       password: this.state.password
     };
-    this.props.registerUser(newUser);
+    this.props.loginUser(newUser);
   };
 
   render() {
@@ -66,7 +66,7 @@ class Login extends Component {
                   <input
                     type="password"
                     className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.email
+                      "is-invalid": errors.password
                     })}
                     placeholder="Password"
                     value={this.state.value}
@@ -88,7 +88,7 @@ class Login extends Component {
   }
 }
 
-Register.propTypes = {
+Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
