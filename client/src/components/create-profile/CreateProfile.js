@@ -38,11 +38,60 @@ class CreateProfile extends Component {
   };
 
   render() {
-    const { errors } = this.state;
+    const { errors, displaySocialInputs } = this.state;
+
+    let socialInputs;
+
+    if (displaySocialInputs) {
+      socialInputs = (
+        <div>
+          <InputGroup
+            placeholder="Twitter Profile URL"
+            name="twitter"
+            icon="fab fa-twitter"
+            value={this.state.twitter}
+            onChange={this.onChange}
+            error={errors.twitter}
+          />
+          <InputGroup
+            placeholder="Facebook Profile URL"
+            name="facebook"
+            icon="fab fa-facebook"
+            value={this.state.facebook}
+            onChange={this.onChange}
+            error={errors.facebook}
+          />
+          <InputGroup
+            placeholder="Instagram Profile URL"
+            name="instagram"
+            icon="fab fa-instagram"
+            value={this.state.instagram}
+            onChange={this.onChange}
+            error={errors.instagram}
+          />
+          <InputGroup
+            placeholder="Youtube Profile URL"
+            name="youtube"
+            icon="fab fa-youtube"
+            value={this.state.youtube}
+            onChange={this.onChange}
+            error={errors.youtube}
+          />
+          <InputGroup
+            placeholder="LinkedIn Profile URL"
+            name="linkedin"
+            icon="fab fa-linkedin"
+            value={this.state.linkedin}
+            onChange={this.onChange}
+            error={errors.linkedin}
+          />
+        </div>
+      );
+    }
 
     //Select options for status
     const options = [
-      { label: "Select Professional Status*", value: 0 },
+      { label: "* Select Professional Status", value: 0 },
       { label: "Developer", value: "Developer" },
       { label: "Junior Developer", value: "Junior Developer" },
       { label: "Senior Developer", value: "Senior Developer" },
@@ -76,6 +125,74 @@ class CreateProfile extends Component {
                   errors={errors.status}
                   options={options}
                   info="Let us know where you are in your career"
+                />
+                <TextFieldGroup
+                  placeholder="Company"
+                  name="company"
+                  value={this.state.company}
+                  onChange={this.onChange}
+                  errors={errors.company}
+                  info="Your company or another's"
+                />
+                <TextFieldGroup
+                  placeholder="Website"
+                  name="website"
+                  value={this.state.website}
+                  onChange={this.onChange}
+                  errors={errors.website}
+                  info="Your website url"
+                />
+                <TextFieldGroup
+                  placeholder="Location"
+                  name="location"
+                  value={this.state.location}
+                  onChange={this.onChange}
+                  errors={errors.location}
+                  info="Your current location or City"
+                />
+                <TextFieldGroup
+                  placeholder="Skills"
+                  name="skills"
+                  value={this.state.skills}
+                  onChange={this.onChange}
+                  errors={errors.skills}
+                  info="Please list your current skills (Use comma delimited values e.g. 'PHP,JS,...')"
+                />
+                <TextFieldGroup
+                  placeholder="Github Username"
+                  name="githubusername"
+                  value={this.state.githubusername}
+                  onChange={this.onChange}
+                  errors={errors.githubusername}
+                  info="If you want your latest repos and Github link, provide your username"
+                />
+                <TextAreaFieldGroup
+                  placeholder="Short"
+                  name="bio"
+                  value={this.state.bio}
+                  onChange={this.onChange}
+                  errors={errors.bio}
+                  info="Tell us about yourself"
+                />
+                <div className="mb-3">
+                  <button
+                    onClick={() =>
+                      this.setState(prevState => ({
+                        displaySocialInputs: !prevState.displaySocialInputs
+                      }))
+                    }
+                    className="btn btn-light"
+                  >
+                    {" "}
+                    Add Social Links{" "}
+                  </button>
+                  <span className="text-muted">Optional</span>
+                </div>
+                {socialInputs}
+                <input
+                  type="submit"
+                  value="Submit"
+                  className="btn btn-info btn-block mt-4"
                 />
               </form>
             </div>
