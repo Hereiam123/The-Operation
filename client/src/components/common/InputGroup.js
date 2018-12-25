@@ -29,7 +29,6 @@ const InputGroup = ({
         name={name}
         required
       />
-      {info && <small className="form-text text-muted">{info}</small>}
       {error && <div className="invalid-feedback">{error}</div>}
     </div>
   );
@@ -45,7 +44,7 @@ InputGroup.propTypes = {
   onChange: PropTypes.func.isRequired
 };
 
-Input.defaultProps = {
+InputGroup.defaultProps = {
   type: "text"
 };
 
