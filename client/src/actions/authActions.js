@@ -58,3 +58,10 @@ export const logoutUser = () => dispatch => {
   //Set current user to an empty object which will set isAuthenticate to false
   dispatch(setCurrentUser({}));
 };
+
+//Clear Current Errors
+export const clearCurrentErrors = () => dispatch => {
+  dispatch({
+    type: RESET_ERRORS
+  });
+};

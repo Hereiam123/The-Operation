@@ -4,7 +4,8 @@ import {
   PROFILE_LOADING,
   GET_ERRORS,
   CLEAR_CURRENT_PROFILE,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  RESET_ERRORS
 } from "./types";
 
 // Get Current User
@@ -46,6 +47,13 @@ export const clearCurrentProfile = () => {
   return {
     type: CLEAR_CURRENT_PROFILE
   };
+};
+
+//Clear Current Profile
+export const clearCurrentErrors = () => dispatch => {
+  dispatch({
+    type: RESET_ERRORS
+  });
 };
 
 //Add experience
