@@ -49,7 +49,7 @@ class EditProfile extends Component {
       profile.company = !isEmpty(profile.company) ? profile.company : "";
       profile.website = !isEmpty(profile.website) ? profile.website : "";
       profile.location = !isEmpty(profile.location) ? profile.location : "";
-      profile.skills = !isEmpty(profile.skills) ? skillsCSV : "";
+      profile.skills = !isEmpty(profile.skills) ? profile.skills : "";
       profile.githubusername = !isEmpty(profile.githubusername)
         ? profile.githubusername
         : "";
@@ -78,7 +78,7 @@ class EditProfile extends Component {
         website: profile.website,
         location: profile.location,
         status: profile.status,
-        skills: profile.skills,
+        skills: skillsCSV,
         githubusername: profile.githubusername,
         bio: profile.bio,
         twitter: profile.twitter,
