@@ -31,6 +31,12 @@ class AddExperience extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   onSubmit = e => {
     e.preventDefault();
     const expData = {
@@ -89,7 +95,7 @@ class AddExperience extends Component {
             <h6>From Date</h6>
             <TextFieldGroup
               placeholder="from"
-              name="location"
+              name="from"
               type="date"
               value={this.state.from}
               onChange={this.onChange}
@@ -126,11 +132,15 @@ class AddExperience extends Component {
               name="description"
               value={this.state.description}
               onChange={this.onChange}
-              errors={errors.description}
+              error={errors.description}
               info="Tell us about your role"
             />
+            <input
+              type="submit"
+              value="Submit"
+              className="btn btn-info btn-block mt-4"
+            />
           </form>
-          <input type="submit" value="Submit" />
         </div>
       </div>
     );
