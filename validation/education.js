@@ -26,10 +26,6 @@ module.exports = function validateEducationInput(data) {
     errors.from = "Education start date field is required";
   }
 
-  if (validator.isEmpty(data.to)) {
-    errors.to = "Education end date required, or state if current";
-  }
-
   return {
     errors,
     isValid: isEmpty(errors)
