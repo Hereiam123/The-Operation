@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import TextFieldGroup from "../common/TextFieldGroup";
+import { clearCurrentErrors } from "../../actions/authActions";
 
 class Register extends Component {
   constructor() {
@@ -27,6 +28,10 @@ class Register extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
+  }
+
+  componentWillUnmount() {
+    this.props.clearCurrentErrors();
   }
 
   onChange = e => {
@@ -98,6 +103,7 @@ class Register extends Component {
 }
 
 Register.propTypes = {
+  clearCurrentErrors: PropTypes.func.isRequired,
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
@@ -110,5 +116,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { registerUser }
+  { registerUser, clearCurrentErrors }
 )(withRouter(Register));

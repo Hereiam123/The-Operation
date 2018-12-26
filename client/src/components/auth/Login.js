@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import TextFieldGroup from "../common/TextFieldGroup";
+import { clearCurrentErrors } from "../../actions/authActions";
 
 class Login extends Component {
   constructor() {
@@ -28,6 +29,10 @@ class Login extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
+  }
+
+  componentWillUnmount() {
+    this.props.clearCurrentErrors();
   }
 
   onChange = e => {
@@ -82,6 +87,7 @@ class Login extends Component {
 }
 
 Login.propTypes = {
+  clearCurrentErrors: PropTypes.func.isRequired,
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
@@ -94,5 +100,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loginUser }
+  { loginUser, clearCurrentErrors }
 )(Login);
