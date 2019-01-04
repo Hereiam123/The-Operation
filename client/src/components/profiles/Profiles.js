@@ -24,7 +24,7 @@ class Profiles extends Component {
         ))  
       }
       else{
-        profileItems = <h1>Need to ADD!</h1>
+        profileItems = <h1>No Profiles to View!</h1>
       }
     }
 
