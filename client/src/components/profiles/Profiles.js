@@ -22,7 +22,7 @@ class Profiles extends Component {
           profileItems = <h1>PROFILES HERE</h1>
       }
       else{
-        profileItems = <h4></h4>
+        profileItems = <h1>Need to ADD!</h1>
       }
     }
 
@@ -30,7 +30,11 @@ class Profiles extends Component {
       <div className = "profiles">
         <div className= "container">
           <div className="row">
-            
+            <div class="col-md-12">
+              <h1 class="display-4 text-center">Developer Profiles</h1>
+              <p class="lead text-center">Browse and connect with developers</p>
+              {profileItems}
+            </div>
           </div>
         </div>
       </div>
@@ -47,4 +51,4 @@ const mapStateToProps = state =>({
     profile: state.profile
 })
 
-export default connect(null,{getProfiles})(Profiles);
+export default connect(mapStateToProps,{getProfiles})(Profiles);
