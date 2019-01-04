@@ -7,6 +7,7 @@ import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
 import InputGroup from "../common/InputGroup";
 import SelectListGroup from "../common/SelectListGroup";
 import { createProfile, getCurrentProfile } from "../../actions/profileActions";
+import { clearCurrentErrors } from "../../actions/authActions";
 import isEmpty from "../../validation/is-empty";
 
 class EditProfile extends Component {
@@ -41,6 +42,8 @@ class EditProfile extends Component {
     }
     if (nextProps.profile.profile) {
       const profile = nextProps.profile.profile;
+
+      console.log(profile.skills);
 
       //Bring skills array back to comma seperated values
       const skillsCSV = profile.skills.join(",");
@@ -88,6 +91,10 @@ class EditProfile extends Component {
         instagram: profile.instagram
       });
     }
+  }
+
+  componentWillUnmount() {
+    this.props.clearCurrentErrors();
   }
 
   onSubmit = e => {
@@ -280,6 +287,7 @@ class EditProfile extends Component {
 }
 
 EditProfile.propTypes = {
+  clearCurrentErrors: PropTypes.func.isRequired,
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
@@ -293,5 +301,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createProfile, getCurrentProfile }
+  { createProfile, getCurrentProfile, clearCurrentErrors }
 )(withRouter(EditProfile));
