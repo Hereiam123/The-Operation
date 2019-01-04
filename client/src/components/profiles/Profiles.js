@@ -19,7 +19,7 @@ class Profiles extends Component {
     }
     else{
       if(profiles.length>0){
-          profileItems = <h1>PROFILES HERE</h1>
+        profileItems = <h1>PROFILES HERE</h1>
       }
       else{
         profileItems = <h1>Need to ADD!</h1>
@@ -30,9 +30,9 @@ class Profiles extends Component {
       <div className = "profiles">
         <div className= "container">
           <div className="row">
-            <div class="col-md-12">
-              <h1 class="display-4 text-center">Developer Profiles</h1>
-              <p class="lead text-center">Browse and connect with developers</p>
+            <div className="col-md-12">
+              <h1 className="display-4 text-center">Developer Profiles</h1>
+              <p className="lead text-center">Browse and connect with developers</p>
               {profileItems}
             </div>
           </div>
