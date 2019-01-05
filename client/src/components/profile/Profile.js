@@ -35,7 +35,7 @@ componentDidMount(){
                         </div>
                     </div>
                     <ProfileHeader profile={profile}/>
-                    <ProfileAbout/>
+                    <ProfileAbout profile={profile}/>
                     <ProfileCreds/>
                     <ProfileGitHub/>
                 </div>
