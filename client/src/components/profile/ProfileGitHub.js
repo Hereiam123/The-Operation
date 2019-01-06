@@ -17,11 +17,12 @@ class ProfileGithub extends Component {
   componentDidMount() {
     const { username } = this.props;
     const { count, sort, clientId, clientSecret } = this.state;
-    const url = `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`;
+    const url = encodeURI(
+      `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`
+    );
     fetch(url)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         this.setState({ repos: data });
       })
       .catch(err => console.log(err));
