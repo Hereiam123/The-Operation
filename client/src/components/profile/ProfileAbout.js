@@ -7,8 +7,8 @@ class ProfileAbout extends Component {
     const { profile } = this.props;
 
     //Get first name
-    const name = profile.user.name;
-    const firstName = name.trim().split("")[0];
+    const firstName = profile.user.name;
+
     //Skill list
     const skills = profile.skills.map((skill, index) => (
       <div key={index} className="p-3">
@@ -42,5 +42,9 @@ class ProfileAbout extends Component {
     );
   }
 }
+
+ProfileAbout.propTypes = {
+  profile: PropTypes.object.isRequired
+};
 
 export default ProfileAbout;
