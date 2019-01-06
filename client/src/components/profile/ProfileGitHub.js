@@ -25,7 +25,7 @@ class ProfileGithub extends Component {
     fetch(url)
       .then(res => res.json())
       .then(data => {
-        if (this.refs.myRef) {
+        if (this.refs.myRef && data.message !== "Not Found") {
           this.setState({ repos: data });
         }
       })
@@ -63,8 +63,12 @@ class ProfileGithub extends Component {
     return (
       <div ref="myRef">
         <hr />
-        <h3 className="mb-4">Latest Github Repos</h3>
-        {repoItems}
+        {repos.length > 0 ? (
+          <div>
+            <h3 className="mb-4">Latest Github Repos</h3>
+            {repoItems}
+          </div>
+        ) : null}
       </div>
     );
   }
