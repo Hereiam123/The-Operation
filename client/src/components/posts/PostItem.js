@@ -15,9 +15,16 @@ class PostItem extends Component {
   onUnLikeClick(id) {
     this.props.removeLike(id);
   }
+  findUserLike(likes) {
+    const { auth } = this.props;
+    if (likes.filter(like => like.user === auth.user.id).length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   render() {
     const { post, auth } = this.props;
-    console.log(post.avatar);
     return (
       <div className="card card-body mb-3">
         <div className="row">
@@ -30,7 +37,9 @@ class PostItem extends Component {
               />
             </Link>
             <br />
-            <p className="text-center">{post.name}</p>
+            <Link to={`profile/${post.name}`}>
+              <p className="text-center">{post.name}</p>
+            </Link>
           </div>
           <div className="col-md-10">
             <p className="lead">{post.text}</p>
@@ -39,7 +48,11 @@ class PostItem extends Component {
               onClick={() => this.onLikeClick(post._id)}
               className="btn btn-light mr-1"
             >
-              <i className="text-info fas fa-thumbs-up" />
+              <i
+                className={classnames("fas fa-thumbs-up", {
+                  "text-info": this.findUserLike(post.likes)
+                })}
+              />
               <span className="badge badge-light">{post.likes.length}</span>
             </button>
             <button
