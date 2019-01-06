@@ -13,11 +13,16 @@ class PostForm extends Component {
     };
   }
 
-  onSubmit = () => {};
+  onSubmit = e => {
+    e.preventDefault();
+  };
 
-  onChange = () => {};
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   render() {
+    const { errors } = this.state;
     return (
       <div>
         <div className="post-form mb-3">
