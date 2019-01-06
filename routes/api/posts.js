@@ -28,7 +28,9 @@ router.get("/", (req, res) => {
 //@access Public
 router.get("/:id", (req, res) => {
   Post.findById(req.params.id)
-    .then(post => res.json(post))
+    .then(post => {
+      res.json(post);
+    })
     .catch(err =>
       res.status(404).json({ noPost: "No post found with that ID" })
     );
