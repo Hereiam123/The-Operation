@@ -8,6 +8,12 @@ module.exports = function validateProfileInput(data) {
   data.status = !isEmpty(data.status) ? data.status : "";
   data.skills = !isEmpty(data.skills) ? data.skills : "";
 
+  data.twitter = !isEmpty(data.twitter) ? data.twitter : "";
+  data.facebook = !isEmpty(data.facebook) ? data.facebook : "";
+  data.instagram = !isEmpty(data.instagram) ? data.instagram : "";
+  data.youtube = !isEmpty(data.youtube) ? data.youtube : "";
+  data.linkedin = !isEmpty(data.linkedin) ? data.linkedin : "";
+
   if (!validator.isLength(data.handle, { min: 2, max: 40 })) {
     errors.handle = "Handle needs to be between 2 and 40 characters";
   }
@@ -25,32 +31,57 @@ module.exports = function validateProfileInput(data) {
   }
 
   if (!isEmpty(data.youtube)) {
-    if (!validator.isURL(data.youtube)) {
-      errors.youtube = "Website needs a valid url";
+    if (
+      !validator.isURL(data.youtube, {
+        protocols: ["http", "https"],
+        require_protocol: true
+      })
+    ) {
+      errors.youtube = "Website needs a valid url (incl. http: or https:)";
     }
   }
 
   if (!isEmpty(data.twitter)) {
-    if (!validator.isURL(data.twitter)) {
-      errors.twitter = "Website needs a valid url";
+    if (
+      !validator.isURL(data.twitter, {
+        protocols: ["http", "https"],
+        require_protocol: true
+      })
+    ) {
+      errors.twitter = "Website needs a valid url (incl. http: or https:)";
     }
   }
 
   if (!isEmpty(data.facebook)) {
-    if (!validator.isURL(data.facebook)) {
-      errors.facebook = "Website needs a valid url";
+    if (
+      !validator.isURL(data.facebook, {
+        protocols: ["http", "https"],
+        require_protocol: true
+      })
+    ) {
+      errors.facebook = "Website needs a valid url (incl. http: or https:)";
     }
   }
 
   if (!isEmpty(data.linkedin)) {
-    if (!validator.isURL(data.linkedin)) {
-      errors.linkedin = "Website needs a valid url";
+    if (
+      !validator.isURL(data.linkedin, {
+        protocols: ["http", "https"],
+        require_protocol: true
+      })
+    ) {
+      errors.linkedin = "Website needs a valid url (incl. http: or https:)";
     }
   }
 
   if (!isEmpty(data.instagram)) {
-    if (!validator.isURL(data.instagram)) {
-      errors.instagram = "Website needs a valid url";
+    if (
+      !validator.isURL(data.instagram, {
+        protocols: ["http", "https"],
+        require_protocol: true
+      })
+    ) {
+      errors.instagram = "Website needs a valid url (incl. http: or https:)";
     }
   }
 
