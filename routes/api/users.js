@@ -26,7 +26,7 @@ router.post("/register", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  User.findOne({ email: req.body.email }).then(user => {
+  User.findOne({ email: req.body.email }).then((user) => {
     if (user) {
       errors.email = "Email already taken.";
       return res.status(400).json(errors);
@@ -34,14 +34,14 @@ router.post("/register", (req, res) => {
       const avatar = gravatar.url(req.body.email, {
         s: "200", //Size
         r: "pg", //Rating
-        d: "mm" //Default Avatar
+        d: "mm", //Default Avatar
       });
 
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
         avatar,
-        password: req.body.password
+        password: req.body.password,
       });
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -50,8 +50,8 @@ router.post("/register", (req, res) => {
           newUser.password = hash;
           newUser
             .save()
-            .then(user => res.json(user))
-            .catch(err => console.log(err));
+            .then((user) => res.json(user))
+            .catch((err) => console.log(err));
         });
       });
     }
@@ -68,7 +68,7 @@ router.post("/login", (req, res) => {
   }
   const email = req.body.email;
   const password = req.body.password;
-  User.findOne({ email }).then(user => {
+  User.findOne({ email }).then((user) => {
     if (!user) {
       errors.email = "User not found";
       return res.status(404).json(errors);
@@ -76,7 +76,7 @@ router.post("/login", (req, res) => {
     //Check password match
     bcrypt
       .compare(password, user.password)
-      .then(isMatch => {
+      .then((isMatch) => {
         if (isMatch) {
           //User matched password
           //Create JWT Payload
@@ -84,12 +84,12 @@ router.post("/login", (req, res) => {
           //Sign Token
           jwt.sign(
             payload,
-            keys.secretOrKey,
+            process.env.secretOrKey,
             { expiresIn: 3600 },
             (err, token) => {
               res.json({
                 success: true,
-                token: "Bearer " + token
+                token: "Bearer " + token,
               });
             }
           );
@@ -99,7 +99,7 @@ router.post("/login", (req, res) => {
           return res.status(400).json(errors);
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   });
 });
 
@@ -113,7 +113,7 @@ router.get(
     res.json({
       user: req.user,
       name: req.name,
-      email: req.email
+      email: req.email,
     });
   }
 );

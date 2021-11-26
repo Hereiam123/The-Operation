@@ -6,7 +6,7 @@ import { clearCurrentProfile } from "../../actions/profileActions";
 import { Link } from "react-router-dom";
 
 class Navbar extends Component {
-  onLogoutClick = e => {
+  onLogoutClick = (e) => {
     e.preventDefault();
     this.props.logoutUser();
     this.props.clearCurrentProfile();
@@ -36,7 +36,7 @@ class Navbar extends Component {
               style={{
                 width: "50px",
                 marginRight: "10px",
-                borderRadius: "10px"
+                borderRadius: "10px",
               }}
             />
             Logout
@@ -93,14 +93,13 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
-export default connect(
-  mapStateToProps,
-  { logoutUser, clearCurrentProfile }
-)(Navbar);
+export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(
+  Navbar
+);
