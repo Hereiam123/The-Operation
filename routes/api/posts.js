@@ -19,11 +19,11 @@ router.get("/", (req, res) => {
     .then(async (posts) => {
       const newPosts = await Promise.all(
         posts.map(async (post) => {
-          await Profile.findOne({ user: post.user._id }).then(
-            (profile) => {
-              post.handle = profile?.handle;
+          await Profile.findOne({ user: post.user._id }).then((profile) => {
+            if (profile) {
+              post.handle = profile.handle;
             }
-          );
+          });
           return post;
         })
       );
@@ -39,11 +39,11 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   Post.findById(req.params.id)
     .then(async (post) => {
-      await Profile.findOne({ user: post.user._id }).then(
-        (profile) => {
-          post.handle = profile?.handle;
+      await Profile.findOne({ user: post.user._id }).then((profile) => {
+        if (profile) {
+          post.handle = profile.handle;
         }
-      );
+      });
       res.json(post);
     })
     .catch((err) =>
@@ -188,11 +188,11 @@ router.post(
           user: req.user.id,
         };
 
-        await Profile.findOne({ user: req.user.id }).then(
-          (profile) => {
-            newComment.handle = profile?.handle;
+        await Profile.findOne({ user: req.user.id }).then((profile) => {
+          if (profile) {
+            newComment.handle = profile.handle;
           }
-        );
+        });
 
         //Add to comments array
         post.comments.unshift(newComment);
