@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //DB Config
-const db = process.env.MONGO_URI;
+const db = process.env.NODE_ENV === "production" ? process.env.MONGO_URI : "insert api here";
 
 //Connect to MongoDB
 mongoose
@@ -43,6 +43,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 
 app.listen(port, () => console.log(`Server started on ${port}`));

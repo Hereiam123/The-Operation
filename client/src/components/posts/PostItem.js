@@ -29,7 +29,7 @@ class PostItem extends Component {
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-2">
-            <Link to={`profile/${post.name}`}>
+            <Link to={`/profile/${post.handle}`}>
               <img
                 className="rounded-circle d-none d-md-block"
                 src={post.avatar}
@@ -37,7 +37,7 @@ class PostItem extends Component {
               />
             </Link>
             <br />
-            <Link to={`profile/${post.name}`}>
+            <Link to={`/profile/${post.handle}`}>
               <p className="text-center">{post.name}</p>
             </Link>
           </div>

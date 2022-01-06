@@ -81,10 +81,13 @@ router.post("/login", (req, res) => {
           //User matched password
           //Create JWT Payload
           const payload = { id: user.id, name: user.name, avatar: user.avatar };
+
+          const secretOrKey = process.env.NODE_ENV === "production" ? process.env.secretOrKey : "chocolate_milk";
+
           //Sign Token
           jwt.sign(
             payload,
-            process.env.secretOrKey,
+            secretOrKey,
             { expiresIn: 3600 },
             (err, token) => {
               res.json({
