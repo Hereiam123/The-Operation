@@ -17,13 +17,13 @@ class ProfileCreds extends Component {
           )}
         </p>
         <p>
-          <strong>Position:</strong>
+          <strong>Position: </strong>
           {exp.title}
         </p>
         <p>
           {exp.location === "" ? null : (
             <span>
-              <strong>Location</strong>
+              <strong>Location: </strong>
               {exp.location}
             </span>
           )}
@@ -31,7 +31,7 @@ class ProfileCreds extends Component {
         <p>
           {exp.description === "" ? null : (
             <span>
-              <strong>Description</strong>
+              <strong>Description: </strong>
               {exp.description}
             </span>
           )}
