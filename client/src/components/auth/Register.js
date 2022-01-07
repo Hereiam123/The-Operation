@@ -92,7 +92,7 @@ class Register extends Component {
                   name="password2"
                   onChange={this.onChange}
                 />
-                <input type="submit" className="btn btn-info btn-block mt-4" />
+                <input type="submit" value="Submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
           </div>
